@@ -1,0 +1,39 @@
+@model Transaction
+
+@if (ViewBag.LoggedUser != null)
+{
+    <form asp-controller="Home" asp-action="Logout" method="POST">
+        <button class="btn btn-link">Logout (@Context.Session.GetString("FullName"))</button>
+    </form>
+}
+@* <a class="float-right" asp-controller="Home" asp-action="Logout">Logout</a> *@
+<h1>Welcome, @ViewBag.LoggedUser.FullName()</h1>
+<p>Current Balance: @ViewBag.Balance.ToString("0.00")</p> 
+
+<form asp-controller="Home" asp-action="Transactions" method="POST">
+    <div class="mb-3">
+        <span class="form-label text-danger font-weight-bold" asp-validation-for="Amount"></span>
+        <label class="form-label" asp-for="Amount"></label>
+        <input class="form-control" asp-for="Amount">   
+    </div>
+    <button class="btn btn-outline-success">Submit</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    @{if(ViewBag.Transactions != null)
+        foreach (var item in ViewBag.Transactions)
+        {
+            <tr>
+                <td>@item.Amount.ToString("0.00")</td>
+                <td>@item.CreatedAt</td>
+            </tr>
+        }
+    }    
+    </tbody>
+</table>

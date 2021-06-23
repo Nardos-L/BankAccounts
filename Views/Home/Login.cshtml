@@ -1,0 +1,23 @@
+@model LoginUser
+@if (ViewBag.LoggedUser != null)
+{
+    <form asp-controller="Home" asp-action="Logout" method="POST">
+        <button class="btn btn-link">Logout (@Context.Session.GetString("FullName"))</button>
+    </form>
+}
+<a class="float-right" asp-controller="Home" asp-action="Index">Need to Register?</a>
+<div class="form-container">
+    <div class="mb-4">
+        <h3>Login</h3>
+    </div>
+    
+    <form asp-action="Login" asp-controller="Home" method="post">
+        <span asp-validation-for="EmailLogin"></span>
+        <label asp-for="EmailLogin"></label>
+        <input asp-for="EmailLogin">
+        <span asp-validation-for="PasswordLogin"></span>
+        <label asp-for="PasswordLogin"></label>
+        <input asp-for="PasswordLogin" name="PasswordLogin">
+        <input value="Login" type="submit">
+    </form>
+</div>
